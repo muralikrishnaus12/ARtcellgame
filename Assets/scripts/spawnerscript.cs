@@ -11,7 +11,7 @@ public class SpawnPrefabsOnCylinderSurface : MonoBehaviour
     [SerializeField] private int spawnCount2 = 5;
     [SerializeField] private int spawnCount3 = 3;
     [SerializeField] private float cylinderRadius = 1.0f;
-    [SerializeField] private float cylinderHeight = 2.0f;
+    //[SerializeField] private float cylinderHeight = 2.0f;
     [SerializeField] private LayerMask collisionLayerMask;
     [SerializeField] private float avoidanceForce = 1.0f;
 
@@ -63,7 +63,8 @@ public class SpawnPrefabsOnCylinderSurface : MonoBehaviour
 
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            float randomHeight = Random.Range(-cylinderHeight * 0.5f, cylinderHeight * 0.5f);
+            float cylinderHeight = transform.localScale.y;
+            float randomHeight = Random.Range(-cylinderHeight * 0.75f, cylinderHeight * 0.75f);
             float randomAngle = Random.Range(0.0f, 360.0f);
 
             spawnPosition = transform.position + new Vector3(Mathf.Cos(randomAngle) * cylinderRadius, randomHeight, Mathf.Sin(randomAngle) * cylinderRadius);
@@ -118,5 +119,11 @@ public class SpawnPrefabsOnCylinderSurface : MonoBehaviour
             obj1.transform.position += avoidanceForceVector * Time.deltaTime;
         }
     }
-
+    public void SpawnExtraPrefab3()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            SpawnPrefab(prefab3);
+        }
+    }
 }
